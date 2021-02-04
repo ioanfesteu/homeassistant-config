@@ -1,0 +1,20 @@
+- id: '1612278041884'
+  name: Jazz mood
+  entities:
+    light.tasmota:
+      friendly_name: Tasmota
+      supported_features: 0
+      state: 'on'
+    media_player.mpd:
+      is_volume_muted: false
+      media_content_id: https://live.wostreaming.net/direct/ppm-jazz24aac256-ibc1
+      media_content_type: music
+      media_position: 3
+      media_position_updated_at: '2021-02-02T15:00:48.712698+00:00'
+      media_title: 'Jazz24: Norah Jones - Peace'
+      shuffle: false
+      repeat: 'off'
+      friendly_name: MPD
+      entity_picture: /api/media_player_proxy/media_player.mpd?token=7e9ac5c0720e36592ff9411d01853aa948345f29eb58679858f8a38688174b49&cache=81c4fffb54f8ae02
+      supported_features: 326579
+      state: playing

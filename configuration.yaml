@@ -1,0 +1,74 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+  
+# Example configuration.yaml entry
+zeroconf:
+
+frontend:
+  themes: !include themes.yaml
+
+# Example configuration.yaml entry
+mqtt:
+  discovery: true
+
+notify:
+  - name: WhatsApp
+    platform: rest
+    resource: https://api.callmebot.com/whatsapp.php
+    data:
+      source: HA
+      phone: !secret whatsapp_phone_no   #enter your phone number here
+      apikey: !secret whatsapp_api       #enter your apikey here (see Setup above)
+
+stream:
+camera:
+  - platform: mjpeg
+    name: RPi Zero Camera
+    #still_image_url: "http://192.168.100.32/picture/1/current/"
+    mjpeg_url: "http://192.168.100.32:8081/mjpeg"
+
+#lovelace:
+#  mode: yaml
+
+media_player:
+  - platform: mpd
+    host: 192.168.100.21
+    port: 6600
+    
+# Config
+switch: !include switches.yaml
+# sensor: !include sensors.yaml
+# binary_sensor: !include binary_sensors.yaml
+
+homeassistant:
+  customize_domain:
+    switch:
+      assumed_state: false #transform on/off to toggle button
+    
+# Text to speech
+tts:
+  - platform: google_translate
+
+influxdb:
+  host: a0d7b954-influxdb
+  port: 8086
+  database: homeassistant
+  username: !secret influxdb_username
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
+  include:
+    entities:
+      - sensor.processor_use # example
+      - sensor.memory_use_percent # example
+      - sensor.disk_use_percent_home # example
+  
+# media player on device
+#media_player:
+#  - platform: gstreamer
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

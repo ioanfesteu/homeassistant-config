@@ -1,0 +1,8 @@
+cards:
+#  - aspect_ratio: 57%
+#    type: iframe
+#    url: 'https://192.168.100.32:8081/'
+
+  - type: picture-entity
+    entity: camera.rpi_zero_camera
+    camera_view: live

@@ -1,0 +1,108 @@
+- id: '1612108091844'
+  alias: PIR Lampadar
+  description: Aprinde lampadarul daca detecteaza miscare
+  trigger:
+  - type: motion
+    platform: device
+    device_id: f1044bde33a841c78289e980a0e60906
+    entity_id: binary_sensor.ewelink_ms01_c5c36722_ias_zone
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 0
+  condition:
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+    - sat
+    - sun
+    after: '22:00:00'
+    before: '6:30:00'
+  action:
+  - type: toggle
+    device_id: 0e85b85df1926c5e9abd1dca0af31f3c
+    entity_id: light.tasmota
+    domain: light
+  - delay: 00:01:00
+  - type: toggle
+    device_id: 0e85b85df1926c5e9abd1dca0af31f3c
+    entity_id: light.tasmota
+    domain: light
+  mode: single
+- id: '1612200780459'
+  alias: Aprinde Lampadar
+  description: ''
+  trigger:
+  - platform: event
+    event_type: zha_event
+    event_data:
+      device_id: 841a34ce19816285aa457790e4ff7640
+  condition: []
+  action:
+  - type: toggle
+    device_id: 0e85b85df1926c5e9abd1dca0af31f3c
+    entity_id: light.tasmota
+    domain: light
+  mode: single
+- id: '1612367705659'
+  alias: Blacklisted TV channels
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: media_player.sony_bravia_tv
+    attribute: source
+    to: DIGI 24 HD
+  condition:
+  - condition: state
+    entity_id: media_player.sony_bravia_tv
+    state: 'on'
+  action:
+  - device_id: 7e7c5c5ce12444831b8ffb65f79c8696
+    domain: mobile_app
+    type: notify
+    message: Cineva se uita la canalul DIGI 24
+    title: Activitate la TV
+  mode: single
+- id: '1612380158262'
+  alias: Pioneer AV volume UP
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 4f952fec155258258ef9f167ac053f05
+    entity_id: remote.broadlink_remote
+    domain: remote
+  condition: []
+  action:
+  - service: remote.send_command
+    data:
+      device: pioneer_av
+      command:
+      - volume up
+      num_repeats: 10
+    entity_id: remote.broadlink_remote
+  mode: single
+- id: '1612380431803'
+  alias: Pioneer AV volume DOWN
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 4f952fec155258258ef9f167ac053f05
+    entity_id: remote.broadlink_remote
+    domain: remote
+  condition: []
+  action:
+  - service: remote.send_command
+    data:
+      device: pioneer_av
+      command:
+      - volume down
+      num_repeats: 10
+    entity_id: remote.broadlink_remote
+  mode: single
